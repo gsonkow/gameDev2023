@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 0;
     public TextMeshProUGUI countText;
     public GameObject winTextObject;
+    public bool invertedControls;
 
     private int count;
     private Rigidbody rb;
@@ -28,8 +29,16 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
 
-        movementX = movementVector.x;
-        movementY = movementVector.y;
+        if (invertedControls)
+        {
+            movementX = -movementVector.x;
+            movementY = -movementVector.y;
+        } else
+        {
+            movementX = movementVector.x;
+            movementY = movementVector.y;
+        }
+        
     }
 
     void setCountText()
@@ -54,6 +63,11 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             count++;
             setCountText();
+        }
+        if (other.gameObject.CompareTag("Inflating"))
+        {
+            other.gameObject.GetComponent<Inflator>().growing = true;
+            other.gameObject.GetComponent<Collider>().isTrigger = false;
         }
     }
 }
