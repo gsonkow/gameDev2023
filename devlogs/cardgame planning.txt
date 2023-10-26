@@ -1,0 +1,11 @@
+﻿1. Gameboard + scripting
+2. Card Supertype/prototypes
+   1. Follower supertype
+   2. Spell supertype
+3. Scripting 10 cards
+4. Polish for MVP deadline
+   1. Find royalty free music and sound effects
+5. Playtests
+6. Script more cards
+7. Add draft or roguelike mode depending on time/complexity
+8. Improve/make animations
