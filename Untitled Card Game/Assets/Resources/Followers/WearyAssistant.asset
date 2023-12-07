@@ -18,3 +18,4 @@ MonoBehaviour:
   cost: 2
   attack: 2
   health: 3
+  botScore: 3

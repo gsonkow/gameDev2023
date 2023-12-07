@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
-public class PlayerBoard : MonoBehaviour
+public class EnemyBoard : MonoBehaviour
 {
     public List<GameObject> followers = new();
 
@@ -13,16 +11,16 @@ public class PlayerBoard : MonoBehaviour
         int cardPoint = 170;
         foreach (GameObject card in followers)
         {
-            card.transform.localPosition = new Vector3(cardPoint, 0, 0);
+            card.transform.localPosition = new Vector3(cardPoint, 110, 0);
             cardPoint -= 90;
         }
     }
 
     public void UntapAll()
     {
-        foreach (GameObject card in followers)
+        foreach(GameObject card in followers)
         {
-            card.GetComponent<FollowerController>().ableToAttack = true;
+            card.GetComponent<FollowerController>().enemyAttack = true;
         }
     }
 

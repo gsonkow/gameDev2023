@@ -11,4 +11,6 @@ public class SpellCard : ScriptableObject
     public Sprite artwork;
 
     public int cost;
+
+    public int botScore;
 }

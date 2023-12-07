@@ -13,4 +13,6 @@ public class FollowerCard : ScriptableObject
     public int cost;
     public int attack;
     public int health;
+
+    public int botScore;
 }

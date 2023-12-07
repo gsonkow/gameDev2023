@@ -10,7 +10,7 @@ public class SpellController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     HandController playerHandController;
     SpellDisplay cardDisplay;
 
-    private bool playable;
+    public bool playable;
 
     void Start()
     {

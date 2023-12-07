@@ -16,3 +16,4 @@ MonoBehaviour:
   text: NO CARD LOADED
   artwork: {fileID: 0}
   cost: 11
+  botScore: -100

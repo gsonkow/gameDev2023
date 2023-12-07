@@ -12,20 +12,24 @@ public class HandController : MonoBehaviour
     public GameObject spellPrototype;
     public TextMeshProUGUI deckCounter;
     public TextMeshProUGUI manaCounter;
+    public TextMeshProUGUI healthCounter;
 
     private List<string> deck = new();
     public List<GameObject> hand = new();
-    //bool turnStart = false;
-    int mana = 7;
 
-    private readonly int STARTING_HAND = 5;
+    int maxMana = 0;
+    int mana = 0;
+    int health = 20;
+
+    private readonly int STARTING_HAND = 3;
     private readonly int MAX_HAND = 8;
 
     void Start()
     {
         deck = GetDeck();
         deckCounter.text = "Deck: " + deck.Count.ToString();
-        manaCounter.text = "$" + mana.ToString() + "0,000";
+        SetMana(mana);
+        healthCounter.text = health.ToString();
         for (int draws = 0; draws < STARTING_HAND; draws++)
         {
             DrawCard();
@@ -48,6 +52,31 @@ public class HandController : MonoBehaviour
                             "WearyAssistant"};
         List<string> dummyDeck = new List<string>(dummy);
         return dummyDeck;
+    }
+
+    public void StartTurn()
+    {
+        DrawCard();
+        maxMana += 1;
+        SetMana(maxMana);
+
+        foreach (GameObject card in hand)
+        {
+            if (card.TryGetComponent<FollowerController>(out FollowerController followCon) && card.TryGetComponent<FollowerDisplay>(out FollowerDisplay followDis))
+            {
+                if (int.Parse(followDis.cost.text) <= GetMana())
+                {
+                    followCon.playable = true;
+                }
+            }
+            else if (card.TryGetComponent<SpellController>(out SpellController spellCon) && card.TryGetComponent<SpellDisplay>(out SpellDisplay spellDis))
+            {
+                if (int.Parse(spellDis.cost.text) <= GetMana())
+                {
+                    spellCon.playable = true;
+                }
+            }
+        }
     }
 
     public void DrawCard()
@@ -101,8 +130,24 @@ public class HandController : MonoBehaviour
 
     public void SetMana(int newMana)
     {
+        if (newMana > 10)
+        {
+            newMana = 10;
+        }
         mana = newMana;
         manaCounter.text = "$" + mana.ToString() + (mana <= 0 ? "" : "0,000");
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+
+    public void setHealth(int newHealth)
+    {
+        health = newHealth;
+        if (health < 0) { health = 0; }
+        healthCounter.text = health.ToString();
     }
 }
 
