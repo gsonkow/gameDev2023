@@ -20,6 +20,8 @@ public class GameLoop : MonoBehaviour
     EnemyController enemy;
     EnemyBoard enemysBoard;
 
+
+    //todo: start screen that passes into this
     void Start()
     {
         player = playerObj.GetComponent<HandController>();
@@ -51,7 +53,7 @@ public class GameLoop : MonoBehaviour
             //todo: win
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && inPlay)
         {
             enemysBoard.UntapAll();
             enemy.TakeTurn();

@@ -9,7 +9,9 @@ public class EnemyController : MonoBehaviour
     public GameObject followerPrototype;
     public GameObject spellPrototype;
     public GameObject blankCard;
-    public EnemyBoard board;
+    public EnemyBoard enemyFollowersList;
+    public PlayerBoard playerFollowersList;
+    public HandController player;
     public TextMeshProUGUI deckCounter;
     public TextMeshProUGUI manaCounter;
     public TextMeshProUGUI healthCounter;
@@ -27,7 +29,9 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        board = GameObject.Find("EnemyFollowers").GetComponent<EnemyBoard>();
+        enemyFollowersList = GameObject.Find("EnemyFollowers").GetComponent<EnemyBoard>();
+        playerFollowersList = GameObject.Find("PlayerFollowers").GetComponent<PlayerBoard>();
+        player = GameObject.Find("Hand").GetComponent<HandController>();
         deck = GetDeck();
         deckCounter.text = "Deck: " + deck.Count.ToString();
         SetMana(mana);
@@ -157,6 +161,8 @@ public class EnemyController : MonoBehaviour
         } while (hasPlays);
 
         //TODO: attack
+        StartCoroutine(Attacks());
+        
     }
 
     public void SetMana(int newMana)
@@ -183,13 +189,44 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator PlayFollower(GameObject card)
     {
-        yield return new WaitForSeconds(0.001f);
+        yield return new WaitForSeconds(0.0001f);
         card.GetComponent<FollowerController>().playable = false;
         card.transform.SetParent(GameObject.Find("EnemyFollowers").transform);
         card.GetComponent<FollowerDisplay>().attack.transform.localScale = new Vector3(2, 2, 0);
         card.GetComponent<FollowerDisplay>().health.transform.localScale = new Vector3(2, 2, 0);
-        board.followers.Add(card);
-        board.RearrangeBoard();
+        enemyFollowersList.followers.Add(card);
+        enemyFollowersList.RearrangeBoard();
+    }
+
+    IEnumerator Attacks()
+    {
+        yield return new WaitForSeconds(0.0001f); //space alien reason why this is needed
+        foreach (GameObject attacker in enemyFollowersList.followers)
+        {
+            FollowerController attackerController = attacker.GetComponent<FollowerController>();
+            if (attackerController.enemyAttack)
+            {
+                FollowerDisplay attackerDisplay = attacker.GetComponent<FollowerDisplay>();
+                int bestTargetIndex = playerFollowersList.highestAttackable(int.Parse(attackerDisplay.attack.text));
+                if (enemyFollowersList.TotalAttack() >= player.getHealth())
+                {
+                    player.setHealth(player.getHealth() - int.Parse(attackerDisplay.attack.text));
+                }
+                else if (bestTargetIndex >= 0)
+                {
+                    FollowerDisplay targetDisplay = playerFollowersList.followers[bestTargetIndex].GetComponent<FollowerDisplay>();
+                    targetDisplay.health.text = (int.Parse(targetDisplay.health.text) - int.Parse(attackerDisplay.attack.text)).ToString();
+                    attackerDisplay.health.text = (int.Parse(attackerDisplay.health.text) - int.Parse(targetDisplay.attack.text)).ToString();
+                    yield return new WaitForSeconds(0.2f);
+                    playerFollowersList.KillDead();
+                }
+                else
+                {
+                    player.setHealth(player.getHealth() - int.Parse(attackerDisplay.attack.text));
+                }
+            }
+        }
+        enemyFollowersList.KillDead();
     }
 
 

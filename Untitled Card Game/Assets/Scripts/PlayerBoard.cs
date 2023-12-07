@@ -39,4 +39,21 @@ public class PlayerBoard : MonoBehaviour
             }
         }
     }
+
+    public int highestAttackable (int attack)
+    {
+        int index = -1;
+
+        int champHealth = 0;
+
+        for (int i = 0; i < followers.Count; i++)
+        {
+            if (int.Parse(followers[i].GetComponent<FollowerDisplay>().health.text) <= attack && int.Parse(followers[i].GetComponent<FollowerDisplay>().health.text) > champHealth)
+            {
+                index = i;
+            }
+        }
+
+        return index;
+    }
 }

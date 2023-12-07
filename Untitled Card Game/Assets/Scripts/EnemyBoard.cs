@@ -37,4 +37,19 @@ public class EnemyBoard : MonoBehaviour
             }
         }
     }
+
+    public int TotalAttack()
+    {
+        int total = 0;
+
+        foreach(GameObject card in followers)
+        {
+            if (card.GetComponent<FollowerController>().enemyAttack)
+            {
+                total += int.Parse(card.GetComponent<FollowerDisplay>().attack.text);
+            }
+        }
+
+        return total;
+    }
 }
