@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f00b33d83484a33906947dc93fb131, type: 3}
   m_Name: Stampede
   m_EditorClassIdentifier: 
-  name: S
-  text: 
-  artwork: {fileID: 0}
-  cost: 0
-  botScore: 0
+  name: Cow Stampede
+  text: Deal 5 Damage to all enemy employees.
+  artwork: {fileID: 21300000, guid: a3483747a4a8b4c3c8f2187dffed8194, type: 3}
+  cost: 7
+  botScore: 8

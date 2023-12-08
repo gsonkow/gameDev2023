@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f00b33d83484a33906947dc93fb131, type: 3}
   m_Name: MassLayoff
   m_EditorClassIdentifier: 
-  name: 
-  text: 
-  artwork: {fileID: 0}
-  cost: 0
-  botScore: 0
+  name: Mass Layoff
+  text: Fire ALL employees from both players.
+  artwork: {fileID: 21300000, guid: cea81fa553fa345ccbb7cd917234643d, type: 3}
+  cost: 6
+  botScore: 11

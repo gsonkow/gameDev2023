@@ -17,5 +17,5 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: cf6922b01738b420680f54360106aac8, type: 3}
   cost: 4
   attack: 3
-  health: 4
+  health: 5
   botScore: 4
