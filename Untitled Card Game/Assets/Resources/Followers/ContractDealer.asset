@@ -9,11 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1f00b33d83484a33906947dc93fb131, type: 3}
-  m_Name: BackroomDeal
+  m_Script: {fileID: 11500000, guid: 3f9911e0eb9ab45d6a72ff4daf1af127, type: 3}
+  m_Name: ContractDealer
   m_EditorClassIdentifier: 
-  name: Backroom Deal
-  text: Draw 2 Cards
-  artwork: {fileID: 21300000, guid: a8fcc445056ca4a68b7f79eb00526ac5, type: 3}
-  cost: 4
-  botScore: 9
+  name: Contract Dealer
+  text: 
+  artwork: {fileID: 21300000, guid: 77d0d67bcf1244f87a7dc3c5f1d4a672, type: 3}
+  cost: 1
+  attack: 1
+  health: 2
+  botScore: 2

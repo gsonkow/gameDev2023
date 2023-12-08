@@ -42,14 +42,24 @@ public class HandController : MonoBehaviour
         //placeholder deck
         string[] dummy = {  "WearyAssistant",
                             "WearyAssistant",
+                            "Goat",
+                            "Goat",
                             "&BackroomDeal",
                             "&BackroomDeal",
-                            "WearyAssistant",
-                            "WearyAssistant",
-                            "&BackroomDeal",
-                            "&BackroomDeal",
-                            "WearyAssistant",
-                            "WearyAssistant"};
+                            "ContractDealer",
+                            "ContractDealer",
+                            "&CrispyAwakening",
+                            "&CrispyAwakening",
+                            "LatteLieutenant",
+                            "LatteLieutenant",
+                            "&MassLayoff",
+                            "&MassLayoff",
+                            "&Stampede",
+                            "&Stampede",
+                            "BigCow",
+                            "BigCow",
+                            "DairyFarmer",
+                            "DairyFarmer"};
         List<string> dummyDeck = new List<string>(dummy);
         return dummyDeck;
     }

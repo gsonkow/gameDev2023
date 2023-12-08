@@ -34,6 +34,7 @@ public class EnemyBoard : MonoBehaviour
                 followers.RemoveAt(i);
                 Destroy(toDestroy);
                 RearrangeBoard();
+                KillDead();
             }
         }
     }
@@ -51,5 +52,16 @@ public class EnemyBoard : MonoBehaviour
         }
 
         return total;
+    }
+
+    public void GiveAll(int attackChange, int healthChange)
+    {
+        foreach (GameObject card in followers)
+        {
+            FollowerDisplay cardDisplay = card.GetComponent<FollowerDisplay>();
+            cardDisplay.attack.text = (int.Parse(cardDisplay.attack.text) + attackChange).ToString();
+            cardDisplay.health.text = (int.Parse(cardDisplay.health.text) + healthChange).ToString();
+        }
+        KillDead();
     }
 }

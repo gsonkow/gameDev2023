@@ -47,14 +47,24 @@ public class EnemyController : MonoBehaviour
         //placeholder deck
         string[] dummy = {  "WearyAssistant",
                             "WearyAssistant",
+                            "WearyAssistant",
+                            "Goat",
                             "&BackroomDeal",
-                            "WearyAssistant",
-                            "WearyAssistant",
                             "&BackroomDeal",
-                            "WearyAssistant",
-                            "WearyAssistant",
-                            "WearyAssistant",
-                            "WearyAssistant"};
+                            "ContractDealer",
+                            "ContractDealer",
+                            "Goat",
+                            "Goat",
+                            "LatteLieutenant",
+                            "LatteLieutenant",
+                            "LatteLieutenant",
+                            "&CrispyAwakening",
+                            "&CrispyAwakening",
+                            "BigCow",
+                            "BigCow",
+                            "BigCow",
+                            "DairyFarmer",
+                            "DairyFarmer"};
         List<string> dummyDeck = new List<string>(dummy);
         return dummyDeck;
     }
@@ -154,13 +164,32 @@ public class EnemyController : MonoBehaviour
                     SetMana(mana);
                     playCard.GetComponent<SpellController>().playable = false;
                     playCard.transform.localScale = new Vector3(0.6f, 0.6f, 1);
-                    StartCoroutine(Draw2Spell(playCard)); // lazy spell implementation
+                    switch (cardToPlay)
+                    {
+                        case "&BackroomDeal":
+                            DrawCard();
+                            DrawCard();
+                            break;
+
+                        case "&CrispyAwakening":
+                            enemyFollowersList.GiveAll(1, 2);
+                            break;
+
+                        case "&MassLayoff":
+                            playerFollowersList.GiveAll(0, -99);
+                            enemyFollowersList.GiveAll(0, -99);
+                            break;
+
+                        case "&Stampede":
+                            playerFollowersList.GiveAll(0, -5);
+                            break;
+                    }
+                    StartCoroutine(PlaySpell(playCard));
                     
                 }
             }
         } while (hasPlays);
 
-        //TODO: attack
         StartCoroutine(Attacks());
         
     }
@@ -230,11 +259,9 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    IEnumerator Draw2Spell(GameObject card)
+    IEnumerator PlaySpell(GameObject card)
     {
-        DrawCard();
-        DrawCard();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         Destroy(card);
     }
 

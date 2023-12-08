@@ -8,12 +8,16 @@ public class SpellController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
     GameObject playerHand;
     HandController playerHandController;
+    PlayerBoard playerFollowersList;
+    EnemyBoard enemyFollowersList;
     SpellDisplay cardDisplay;
 
     public bool playable;
 
     void Start()
     {
+        playerFollowersList = GameObject.Find("PlayerFollowers").GetComponent<PlayerBoard>();
+        enemyFollowersList = GameObject.Find("EnemyFollowers").GetComponent<EnemyBoard>();
         playable = true;
         playerHand = GameObject.Find("Hand");
         playerHandController = playerHand.GetComponent<HandController>();
@@ -57,8 +61,28 @@ public class SpellController : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             //TODO: placeholder
             playable = false;
             playerHandController.SetMana(playerHandController.GetMana() - int.Parse(cardDisplay.cost.text));
-            playerHandController.DrawCard();
-            playerHandController.DrawCard();
+
+            switch (cardDisplay.nameText.text)
+            {
+                case "Backroom Deal":
+                    playerHandController.DrawCard();
+                    playerHandController.DrawCard();
+                    break;
+
+                case "Crispy Awakening":
+                    playerFollowersList.GiveAll(1, 2);
+                    break;
+
+                case "Mass Layoff":
+                    playerFollowersList.GiveAll(0, -99);
+                    enemyFollowersList.GiveAll(0, -99);
+                    break;
+
+                case "Cow Stampede":
+                    enemyFollowersList.GiveAll(0, -5);
+                    break;
+            }
+
             Destroy(this.gameObject);
         }
         else if (transform.localPosition.y < -10 && playable)
