@@ -37,6 +37,7 @@ public class FollowerController : MonoBehaviour, IBeginDragHandler, IDragHandler
         }
     }
 
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (playable)
